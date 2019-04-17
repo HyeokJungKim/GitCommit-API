@@ -14,7 +14,6 @@ class User < ActiveRecord::Base
     num = information_hash["data-count"].value.to_i
     date_string = information_hash["data-date"].value
     date = Date.strptime(date_string, "%Y-%m-%d")
-
     if date.today? && num > 0
       Commit.create(user: self, date_reference: "#{date_string}-#{self.github_username}")
       return "#{self.name}: Nice! You've been committing for #{self.streak} day(s) in a row! ✅"
@@ -25,9 +24,10 @@ class User < ActiveRecord::Base
   end
 
   def self.check_all
+    colors = [:green, :red]
     puts "=" * 25
-    User.all.each do |user|
-      puts user.check_commit
+    User.all.each_with_index do |user, index|
+      puts user.check_commit.colorize(colors[index%2])
     end
     puts "=" * 25
   end
