@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
     num = information_hash["data-count"].value.to_i
     date_string = information_hash["data-date"].value
     date = Date.strptime(date_string, "%Y-%m-%d")
-    if date.today? && num > 0
+    if num > 0 && date.today?
       Commit.create(user: self, date_reference: "#{date_string}-#{self.github_username}")
       return "#{self.name}: Nice! You've been committing for #{self.streak} day(s) in a row! ✅"
     else
