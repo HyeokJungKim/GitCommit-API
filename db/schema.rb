@@ -14,8 +14,7 @@ ActiveRecord::Schema.define(version: 2019_04_16_164602) do
 
   create_table "commits", force: :cascade do |t|
     t.integer "user_id"
-    t.string "repository_name"
-    t.string "commit_reference"
+    t.string "date_reference"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

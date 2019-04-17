@@ -6,3 +6,8 @@ task :console do
   ActiveRecord::Base.logger = Logger.new(STDOUT)
   Pry.start
 end
+
+desc 'run the program'
+task :run do
+  User.check_all
+end
