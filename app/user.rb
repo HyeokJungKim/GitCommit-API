@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :commits
+  validates :github_username, uniqueness: true
 
   def scrape_github
     doc = Nokogiri::HTML(open("http://github.com/#{self.github_username}"))
