@@ -6,12 +6,12 @@ class User < ActiveRecord::Base
     doc = Nokogiri::HTML(open("http://github.com/#{self.github_username}"))
   end
 
-  def get_last_commit
-    scrape_github.css("rect")[-1]
+  def get_commit_from_n_days(num = 0)
+    scrape_github.css("rect")[-1 - num]
   end
 
   def check_commit
-    information_hash = get_last_commit.attributes
+    information_hash = get_commit_from_n_days().attributes
     num = information_hash["data-count"].value.to_i
     date_string = information_hash["data-date"].value
     date = Date.strptime(date_string, "%Y-%m-%d")
